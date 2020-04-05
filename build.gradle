@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.3.0.M3'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
+    id 'war'
 }
 
 group = 'com.andyleo'
@@ -25,11 +26,14 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+    providedCompile group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+
 }
 
 test {
