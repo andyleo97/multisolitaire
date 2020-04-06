@@ -16,6 +16,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @CrossOrigin
     @PostMapping(value = "/createuser", produces = "application/json", consumes = "application/json")
     public User createUser(@Validated @RequestBody User user){
         User user1 = userService.saveUserService(user);
