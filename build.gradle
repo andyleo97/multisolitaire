@@ -10,6 +10,7 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
+	testCompile.exclude group:'org.log4j', module:'slf4j-over-logback'
 	developmentOnly
 	runtimeClasspath {
 		extendsFrom developmentOnly
@@ -27,6 +28,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-web-services'
 	providedCompile group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.2.6.RELEASE'
+
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
