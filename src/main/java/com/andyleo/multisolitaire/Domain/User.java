@@ -10,6 +10,28 @@ import java.time.Instant;
 @Table(name = "user_login")
 public class User {
 
+    @Id
+    @GeneratedValue
+    private int id;
+
+    @Column
+    private String firstName;
+
+    @Column
+    private String lastName;
+
+    @Column
+    private String email;
+
+    @Column
+    private String password;
+
+    @Column
+    private Instant dateCreated;
+
+    @Column
+    private Instant dateUpdated;
+
 
     public String getFirstName() {
         return firstName;
@@ -59,26 +81,11 @@ public class User {
         this.dateUpdated = dateUpdated;
     }
 
-    @Id
-    @GeneratedValue
-    private int id;
+    public int getId() {
+        return id;
+    }
 
-    @Column
-    private String firstName;
-
-    @Column
-    private String lastName;
-
-    @Column
-    private String email;
-
-    @Column
-    private String password;
-
-    @Column
-    private Instant dateCreated;
-
-    @Column
-    private Instant dateUpdated;
-
+    public void setId(int id) {
+        this.id = id;
+    }
 }

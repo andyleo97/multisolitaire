@@ -2,12 +2,14 @@ package com.andyleo.multisolitaire.Controllers;
 
 import com.andyleo.multisolitaire.Domain.User;
 import com.andyleo.multisolitaire.Services.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 
+@Slf4j
 @RestController
 @RequestMapping("/")
 public class UserController {
