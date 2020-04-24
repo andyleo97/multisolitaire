@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+
 @RestController
 @RequestMapping("/")
 public class UserController {
@@ -19,7 +21,15 @@ public class UserController {
     @CrossOrigin
     @PostMapping(value = "/createuser", produces = "application/json", consumes = "application/json")
     public User createUser(@Validated @RequestBody User user){
+        user.setDateCreated(Instant.now());
         User user1 = userService.saveUserService(user);
+        return user1;
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/login", produces = "application/json", consumes = "application/json")
+    public User loginUser(@Validated @RequestBody User user){
+        User user1 = userService.getUserService(user);
         return user1;
     }
 }

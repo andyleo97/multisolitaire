@@ -16,8 +16,10 @@ public class UserService {
     }
 
     public User saveUserService(User user){
-        User user1 = userRepository.save(user);
-        return user1;
+        return userRepository.save(user);
     }
 
+    public User getUserService(User user){
+        return userRepository.findUserByEmail(user.getEmail());
+    }
 }
