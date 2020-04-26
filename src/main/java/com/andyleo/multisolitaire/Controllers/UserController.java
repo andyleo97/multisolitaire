@@ -3,10 +3,16 @@ package com.andyleo.multisolitaire.Controllers;
 import com.andyleo.multisolitaire.Domain.User;
 import com.andyleo.multisolitaire.Services.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.Instant;
 
 @Slf4j
@@ -22,10 +28,10 @@ public class UserController {
 
     @CrossOrigin
     @PostMapping(value = "/createuser", produces = "application/json", consumes = "application/json")
-    public User createUser(@Validated @RequestBody User user){
+    public ResponseEntity<Object> createUser(@Validated @RequestBody User user){
         user.setDateCreated(Instant.now());
         User user1 = userService.saveUserService(user);
-        return user1;
+        return ResponseEntity.status(HttpStatus.OK).body("");
     }
 
     @CrossOrigin
@@ -33,5 +39,10 @@ public class UserController {
     public User loginUser(@Validated @RequestBody User user){
         User user1 = userService.getUserService(user);
         return user1;
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Object> handleError(DataIntegrityViolationException e) {
+        return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body("");
     }
 }
