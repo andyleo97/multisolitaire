@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
+
 @Slf4j
 @Service
 public class UserService {
@@ -23,11 +25,15 @@ public class UserService {
 
     public User saveUserService(User user){
         User saved = userRepository.save(user);
-        log.debug("Saved User: " + saved.getId());
+        //log.debug("Saved User: " + saved.getId());
         return saved;
     }
 
-    public User getUserService(User user){
-        return userRepository.findUserByEmail(user.getEmail());
+    public User getUserService(User user) throws Exception {
+        User user1 = userRepository.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
+        if (user1 == null){
+            throw new SQLException();
+        }
+        return user1;
     }
 }

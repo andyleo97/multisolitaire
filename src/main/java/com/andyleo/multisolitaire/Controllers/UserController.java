@@ -36,13 +36,18 @@ public class UserController {
 
     @CrossOrigin
     @PostMapping(value = "/login", produces = "application/json", consumes = "application/json")
-    public User loginUser(@Validated @RequestBody User user){
+    public User loginUser(@Validated @RequestBody User user) throws Exception {
         User user1 = userService.getUserService(user);
         return user1;
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<Object> handleError(DataIntegrityViolationException e) {
+    public ResponseEntity<Object> handleDataIntegrityError(DataIntegrityViolationException e) {
         return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body("");
+    }
+
+    @ExceptionHandler(SQLException.class)
+    public ResponseEntity<Object> handleBadLoginAttempt(SQLException e){
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("");
     }
 }
